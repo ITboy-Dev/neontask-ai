@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
 import TaskForm from '@/components/TaskForm'
 import TaskList from '@/components/TaskList'
@@ -216,7 +216,9 @@ export default function DashboardPage() {
                 backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)',
                 backgroundSize: '20px 20px'
               }}></div>
-              <ChatWindow isEmbedded={true} />
+              <Suspense fallback={<div className="flex items-center justify-center h-full text-cyan-500 animate-pulse">INITIALIZING UPLINK...</div>}>
+                <ChatWindow isEmbedded={true} />
+              </Suspense>
             </div>
           </div>
         </div>
