@@ -43,6 +43,15 @@ export default function ChatWindow({ isEmbedded = false }: ChatWindowProps) {
         { command: '/update', description: 'Update a task', example: '/update 2 New title' },
         { command: '/search', description: 'Search tasks', example: '/search work' },
     ]
+
+    // Quick Suggestions
+    const suggestions = [
+        "Add task: ",
+        "List my tasks",
+        "What tasks are pending?",
+        "Help me plan my day"
+    ]
+
     const [isOpen, setIsOpen] = useState(isEmbedded)
     const [conversations, setConversations] = useState<Conversation[]>([])
     const [messages, setMessages] = useState<Message[]>([])
@@ -635,6 +644,19 @@ export default function ChatWindow({ isEmbedded = false }: ChatWindowProps) {
                                     </div>
                                 )}
 
+                                {/* Suggestions (Embedded) */}
+                                <div className="px-3 pb-2 flex gap-2 overflow-x-auto custom-scrollbar no-scrollbar">
+                                    {suggestions.map((s, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setInput(s)}
+                                            className="whitespace-nowrap px-3 py-1 bg-cyan-900/20 border border-cyan-500/30 rounded-full text-[10px] text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400 transition-colors"
+                                        >
+                                            {s}
+                                        </button>
+                                    ))}
+                                </div>
+
                                 <div className="flex gap-2">
                                     <div className="relative flex-1">
                                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-cyan-500 font-bold">{'>'}</span>
@@ -796,6 +818,19 @@ export default function ChatWindow({ isEmbedded = false }: ChatWindowProps) {
                                                 ))}
                                             </div>
                                         )}
+
+                                        {/* Suggestions (Popup) */}
+                                        <div className="px-3 pb-2 flex gap-2 overflow-x-auto custom-scrollbar no-scrollbar">
+                                            {suggestions.map((s, i) => (
+                                                <button
+                                                    key={i}
+                                                    onClick={() => setInput(s)}
+                                                    className="whitespace-nowrap px-3 py-1 bg-cyan-900/20 border border-cyan-500/30 rounded-full text-[10px] text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400 transition-colors"
+                                                >
+                                                    {s}
+                                                </button>
+                                            ))}
+                                        </div>
 
                                         <div className="flex gap-2">
                                             <div className="relative flex-1">
