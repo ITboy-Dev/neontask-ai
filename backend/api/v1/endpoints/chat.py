@@ -282,8 +282,11 @@ async def call_google_direct(messages, system_instruction):
             response = await client.post(url, json=payload, timeout=30.0)
             
             if response.status_code != 200:
-                print(f"❌ Google API Error: {response.status_code} - {response.text}")
-                raise Exception(f"Google API {response.status_code}")
+                error_msg = response.text
+                print(f"❌ Google API Error: {response.status_code} - {error_msg}")
+                if response.status_code == 403 or response.status_code == 400:
+                     raise Exception(f"Google API Key/Model Error: {response.status_code}")
+                raise Exception(f"Google API Error: {response.status_code}")
                 
             data = response.json()
             try:
@@ -428,7 +431,11 @@ async def chat_with_ai(
             
         except Exception as fallback_error:
             print(f"❌ CRITICAL: Both Providers Failed. Primary: {e}, Fallback: {fallback_error}")
-            return ChatResponse(response=f"⚠️ System Overload. Please try again. (Details: {fallback_error})", source="System Error")
+            # User-friendly error message
+            return ChatResponse(
+                response=f"⚠️ Chatbot is currently unavailable. Please verify API keys. (Primary: {str(e)}, Fallback: {str(fallback_error)})", 
+                source="System Error"
+            )
 
 # --- History Endpoints ---
 @router.get("/history", response_model=List[ChatMessageRead])
