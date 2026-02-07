@@ -91,10 +91,10 @@ export default function DashboardPage() {
   const completedTasksCount = tasks.filter(t => !t.completed).length
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-black text-white relative flex font-sans">
+    <div className="min-h-[calc(100dvh-64px)] bg-black text-white relative flex font-sans">
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-[calc(100vh-64px)] overflow-hidden">
+      <div className="flex-1 flex flex-col h-[calc(100dvh-64px)] overflow-hidden">
 
         {/* Header Stats Bar */}
         <div className="border-b border-gray-800 bg-gray-900/50 p-4 flex flex-col sm:flex-row gap-4 items-center justify-between">

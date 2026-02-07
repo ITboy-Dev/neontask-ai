@@ -696,8 +696,8 @@ export default function ChatWindow({ isEmbedded = false }: ChatWindowProps) {
                             initial={{ opacity: 0, y: 20, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                            className="mb-4 bg-black border border-cyan-500/50 shadow-2xl flex overflow-hidden shadow-cyan-900/30"
-                            style={{ width: sidebarOpen ? '600px' : '380px', height: '480px' }}
+                            className="mb-4 bg-black border border-cyan-500/50 shadow-2xl flex overflow-hidden shadow-cyan-900/30 max-w-[95vw]"
+                            style={{ width: sidebarOpen ? 'min(600px, 95vw)' : 'min(380px, 95vw)', height: 'min(480px, 80dvh)' }}
                         >
                             {/* Sidebar */}
                             <ChatSidebar

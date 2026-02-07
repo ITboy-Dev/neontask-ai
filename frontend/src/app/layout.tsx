@@ -27,7 +27,7 @@ export default function RootLayout({
             <body className={`${outfit.className} bg-black min-h-screen text-white`}>
                 <QueryProvider>
                     <Navbar />
-                    <main className="min-h-[calc(100vh-64px)]">
+                    <main className="min-h-[calc(100dvh-64px)]">
                         {children}
                     </main>
                     <Toaster
