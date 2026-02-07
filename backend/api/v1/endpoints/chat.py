@@ -28,7 +28,7 @@ router = APIRouter()
 # DUAL-MODEL FALLBACK SYSTEM
 # ========================================
 PRIMARY_MODEL = "openai/gpt-4o-mini"     # Best for tool calling
-GEMINI_MODEL = "gemini-2.5-flash"        # Stable Google model
+GEMINI_MODEL = "gemini-2.0-flash"        # Verified available model
 FORCE_USE_BACKUP = os.getenv("FORCE_USE_BACKUP", "False").lower() == "true"
 
 # --- Models ---
@@ -407,7 +407,7 @@ async def chat_with_ai(
                 model=PRIMARY_MODEL,
                 messages=messages
             )
-            return ChatResponse(response=final_res.choices[0].message.content, source=f"Primary ({PRIMARY_MODEL})")
+            return ChatResponse(response=final_res.choices[0].message.content or "✅ Task Completed", source=f"Primary ({PRIMARY_MODEL})")
             
         return ChatResponse(response=msg.content or "✅ Done", source=f"Primary ({PRIMARY_MODEL})")
 
@@ -427,7 +427,7 @@ async def chat_with_ai(
                 final_res, _ = await call_google_direct(messages, final_sys)
                 return ChatResponse(response=final_res.choices[0].message.content or result, source="Google (Fallback)")
                 
-            return ChatResponse(response=msg.content, source="Google (Fallback)")
+            return ChatResponse(response=msg.content or "Let me check that for you.", source="Google (Fallback)")
             
         except Exception as fallback_error:
             print(f"❌ CRITICAL: Both Providers Failed. Primary: {e}, Fallback: {fallback_error}")
